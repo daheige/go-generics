@@ -110,6 +110,16 @@ type SignedInteger interface {
 	~int | ~int8 | ~int16 | ~int32 | ~int64
 }
 
+// Print print data
+func Print[T ~int | ~string](t T) {
+	fmt.Printf("%d", t)
+}
+
+// Print2 print int
+func Print2[T SignedInteger](t T) {
+	fmt.Printf("%d", t)
+}
+
 // NumberSlice number slice 定义指定类型约束的泛型切片
 // 这里T是一个 Number 约束，NumberSlice 是一个复杂的泛型切片
 type NumberSlice[T Number] []T
@@ -228,6 +238,11 @@ func main() {
 	printSlice(l)
 	var l2 = List[float64]{1, 2, 3}
 	printSlice(l2)
+
+	// Print2 int
+	Print(1)
+	// Print("10") // 这个是失败的格式化处理
+	Print2(12)
 }
 
 func chanGenerics() {

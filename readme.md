@@ -114,3 +114,10 @@ type Stringish interface {
     
     Ian Lance Taylor最后给出了简单的泛型使用方针，就是当开发者发现自己多次编写相同的程序代码，而副本不同之处的唯一区别，
     仅在于使用了不同类型，便可以考虑使用类型参数。
+
+# go1.18 设计变化点
+    https://golang.google.cn/doc/go1.18
+    大的变化：
+        1. go generics 
+        2. go work 
+        3.New debug/buildinfo package and New net/netip package
