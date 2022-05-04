@@ -5,6 +5,7 @@ import (
 )
 
 // print slice
+// 泛型函数定义
 func printSlice[T any](s []T) {
 	for _, v := range s {
 		fmt.Println("value:", v)
