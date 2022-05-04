@@ -1,12 +1,5 @@
-# go1.18 generics 实战
-    常见的泛型使用方式：
-    1.generics func (printslice)
-    2.generics type constraint eg: string,int,map,chan,slice (sum)
-    3.generics struct (collection)
-    4.generics method (collection)
-
-# go generics要求
-    需要安装go1.18.1+版本
+# go1.18 generics
+    go generics要求安装go1.18.1+版本
 
 # goland 升级到最新版本
     推荐GoLand 2022.1 版本
@@ -22,7 +15,7 @@ https://golang.google.cn/doc/tutorial/generics
         一般在泛型函数中定义，比如 `func Print[T any](s []T)`
 
     类型约束 type constraint 
-        可以对于`int,int64,float64,float32,string,chan,map,slice` 等不同类型进行约束
+        可以对于int,int64,float64,float32,string,chan,map,slice 等不同类型进行约束
 
     类型自动推导
         对于不能自动推导的需要显式指定类型，比如说 New[int]() 创建一个collection
@@ -30,13 +23,20 @@ https://golang.google.cn/doc/tutorial/generics
     类型集合
         新语法，他的标识符是 “~”，完整用法是 ~T。
         ~T 是指底层类型为 T 的所有类型的集合。
-        比如说 `~int | ~int8 | ~int16 | ~int32 | ~int64`
+        比如说 ~int | ~int8 | ~int16 | ~int32 | ~int64
         这个集合类型可以嵌套到别的类型中
 
 # generics 约束
     - comparable 约束，使得传入的参数必须能进行 == 与 != 操作
     - any 约束，可以是任意类型，在go底层就是type any = interface{}
     - interface 约束其实有三种: 可选类型约定、method方法约束、可选和方法混合约束
+
+# go1.18 generics 实战
+    常见的泛型使用方式：
+    1.generics func (printslice)
+    2.generics type constraint eg: string,int,map,chan,slice (sum)
+    3.generics struct (collection)
+    4.generics method (collection)
 
 # 参数推导
 ```go
@@ -47,7 +47,7 @@ func Map[F, T any](s []F, f func(F) T) []T { ... }
 ```go
 // 联合元素 约束多个类型
 type Number interface {
-int8 | int16 | int32 | int | int64 | float32 | float64
+    int8 | int16 | int32 | int | int64 | float32 | float64
 }
 ```
 # 近似元素和嵌入约束
@@ -91,9 +91,9 @@ type Stringish interface {
 
     而Google技术总监同时也是Go泛型主要设计者的Ian Lance Taylor，则在Go博客搬出2021年，他在Go Day与GopherCon的讲题
     When To Use Generics，来说明Go泛型的正确使用时机。
-    Planetscale的工程师提到，之所以Go泛型可能使程序代码变慢的原因，是因为Go泛型的实例，并非使用完全单态化（Monomorphization），
-    而是采用了一种称为GCShape Stenciling with Dictionaries的部分单态化技术，该方法虽然可大幅减少程序代码的量，
-    但是却会在特定的情况下，使程序代码变慢。
+    Planetscale的工程师提到，之所以Go泛型可能使程序代码变慢的原因，是因为Go泛型的实例，
+    并非使用完全单态化（Monomorphization），而是采用了一种称为GCShape Stenciling with Dictionaries的
+    部分单态化技术，该方法虽然可大幅减少程序代码的量，但是却会在特定的情况下，使程序代码变慢。
     
     而Ian Lance Taylor提到，Go的程序开发通用准则，要开发者通过编写程序代码来撰写Go程序，而非定义类型，因此谈到泛型，
     要是开发者通过定义类型参数约束来撰写程序，那一开始就走错路了，应该从编写函数开始，而在之后就能够自然地添加类型参数，
@@ -116,8 +116,10 @@ type Stringish interface {
     仅在于使用了不同类型，便可以考虑使用类型参数。
 
 # go1.18 设计变化点
-    https://golang.google.cn/doc/go1.18
-    大的变化：
-        1. go generics 
-        2. go work 
-        3.New debug/buildinfo package and New net/netip package
+https://golang.google.cn/doc/go1.18
+
+大的变化：
+1. go generics
+2. go work
+3. core library
+   eg: New debug/buildinfo package and New net/netip package
